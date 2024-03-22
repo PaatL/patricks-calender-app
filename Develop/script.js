@@ -17,10 +17,22 @@ $(function () {
 
   saveButtonArr.on("click", function () {
     console.log($(this));
-    var key = $(this).parent().attr("id");
+    var key = parseInt($(this).parent().attr("id"));
     var value = $(this).siblings("textarea").val();
-
+    var currentTime = dayjs().hour()
+    if(currentTime > 12) { currentTime -= 12;} 
+    console.log(key);
+    if(key < currentTime){
+  $(this).siblings("textarea").addClass('past');
+}
+else if(key === currentTime){
+  $(this).siblings("textarea").addClass('present');
+}
+else  $(this).siblings("textarea").addClass('future');
     localStorage.setItem(key, value);
+    console.log(key,value);
+
+
   });
 
   // TODO: Add code to apply the past, present, or future class to each time
@@ -35,9 +47,14 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-
-
-
+ 
+function loadInfo(){
+saveButtonArr.each(function() {
+  var key = $(this).parent().attr("id");
+  var value = localStorage.getItem(key);
+  $(this).siblings("textarea").val(value);
+})
+}
   // TODO: Add code to display the current date in the header of the page.
 
   $('#currentDay').text(dayjs().format('MM/DD/YYYY'))
