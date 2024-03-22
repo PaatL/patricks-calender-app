@@ -6,6 +6,8 @@ const saveButtonArr = $(".saveBtn");
 const timeBlock = $("#hour");
 // const
 
+
+ 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -20,7 +22,6 @@ $(function () {
     var key = parseInt($(this).parent().attr("id"));
     var value = $(this).siblings("textarea").val();
     var currentTime = dayjs().hour()
-    if(currentTime > 12) { currentTime -= 12;} 
     console.log(key);
     if(key < currentTime){
   $(this).siblings("textarea").addClass('past');
